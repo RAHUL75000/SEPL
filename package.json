@@ -1,0 +1,30 @@
+{
+  "name": "saina-exhibitions",
+  "version": "1.0.0",
+  "description": "Official corporate website for Saina Exhibitions Pvt. Ltd. (SEPL)",
+  "scripts": {
+    "start": "node backend/server.js",
+    "dev": "nodemon backend/server.js",
+    "install:backend": "npm install --prefix backend",
+    "postinstall": "npm install --prefix backend"
+  },
+  "keywords": [
+    "saina-exhibitions",
+    "sepl",
+    "corporate-website",
+    "exhibitions",
+    "trade-shows"
+  ],
+  "author": "Saina Exhibitions Pvt. Ltd.",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^7.6.0",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
