@@ -1,0 +1,29 @@
+{
+  "name": "saina-exhibitions-backend",
+  "version": "1.0.0",
+  "description": "Backend server and API for Saina Exhibitions Pvt. Ltd. (SEPL) corporate website",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "saina-exhibitions",
+    "sepl",
+    "express",
+    "mongoose",
+    "mongodb"
+  ],
+  "author": "Saina Exhibitions Pvt. Ltd.",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "mongodb": "^7.6.0",
+    "mongoose": "^8.9.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
+  }
+}
