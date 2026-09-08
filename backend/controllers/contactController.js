@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Contact = require('../models/Contact');
 
 /**
@@ -68,11 +69,20 @@ const submitContact = async (req, res, next) => {
       message: sanitizeInput(message)
     };
 
-    // 3. Create and Save Document in MongoDB
+    // 3. Verify Database Connection
+    if (mongoose.connection.readyState !== 1) {
+      console.error(`[Database Error] MongoDB is not connected (readyState: ${mongoose.connection.readyState}). Check MONGODB_URI & IP whitelist.`);
+      return res.status(503).json({
+        success: false,
+        message: 'Database connection is currently unavailable. Please verify MONGODB_URI and MongoDB Atlas IP whitelist.'
+      });
+    }
+
+    // 4. Create and Save Document in MongoDB
     const newContact = new Contact(sanitizedData);
     await newContact.save();
 
-    // 4. Return Success Response
+    // 5. Return Success Response
     return res.status(201).json({
       success: true,
       message: 'Your enquiry has been submitted successfully.'

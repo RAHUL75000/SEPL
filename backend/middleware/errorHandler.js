@@ -34,6 +34,9 @@ const errorHandler = (err, req, res, next) => {
     message = 'Malformed JSON request body.';
   }
 
+  // Log detailed error on server console for deployment debugging
+  console.error(`[API Error] ${req.method} ${req.originalUrl}:`, err);
+
   // Generic 500 error sanitization for production security
   if (statusCode === 500 && process.env.NODE_ENV === 'production') {
     message = 'Internal server error. Please try again later.';
