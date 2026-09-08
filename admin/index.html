@@ -15,7 +15,7 @@
 
   <style>
     :root {
-      --bg-main: #dfe4f1;
+      --bg-main: #0B1120;
       --bg-card: #131D33;
       --bg-card-hover: #182440;
       --border: rgba(255, 255, 255, 0.08);
@@ -42,10 +42,13 @@
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
-    body {
+    html, body {
       background-color: var(--bg-main);
       color: var(--text-main);
       min-height: 100vh;
+      width: 100%;
+      max-width: 100vw;
+      overflow-x: hidden;
       display: flex;
       flex-direction: column;
     }
@@ -601,11 +604,360 @@
       gap: 10px;
     }
 
+    /* ==================== RESPONSIVE DESIGN ==================== */
+
+    /* Touch & Scroll Defaults */
+    .table-container {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Tablets (<= 900px) */
+    @media (max-width: 900px) {
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+      }
+    }
+
+    /* Mobile Tablets & Smart Phones (<= 768px) */
     @media (max-width: 768px) {
-      .admin-navbar { padding: 12px 16px; }
-      .admin-main { padding: 20px 14px; }
-      .card-search-wrap { max-width: 100%; }
-      .brand-tagline { display: none; }
+      html, body, #dashboardView, .admin-main {
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+
+      /* Navbar */
+      .admin-navbar {
+        padding: 10px 14px;
+        gap: 8px;
+        flex-wrap: nowrap;
+      }
+
+      .navbar-brand {
+        gap: 8px;
+        min-width: 0;
+        flex-shrink: 0;
+      }
+
+      .brand-title {
+        font-size: 16px !important;
+      }
+
+      .brand-badge {
+        font-size: 10px;
+        padding: 2px 5px;
+      }
+
+      .brand-tagline {
+        display: none;
+      }
+
+      .navbar-actions {
+        gap: 6px;
+        flex-shrink: 0;
+      }
+
+      .admin-pill {
+        padding: 5px 8px;
+        font-size: 11px;
+        gap: 5px;
+      }
+
+      #adminEmailPill {
+        max-width: 130px;
+      }
+      #navAdminEmail {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        display: inline-block;
+      }
+
+      .navbar-actions .btn {
+        padding: 7px 9px;
+        font-size: 12px;
+      }
+      .navbar-actions .btn .btn-text {
+        display: none;
+      }
+
+      /* Main Content */
+      .admin-main {
+        padding: 14px 10px;
+      }
+
+      /* Stats Grid - 2 Boxes Per Row On Mobile */
+      .stats-row {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        min-width: 0;
+        padding: 14px 12px;
+        gap: 4px;
+        border-radius: var(--radius-sm);
+      }
+
+      .stat-label {
+        font-size: 11px;
+        line-height: 1.3;
+      }
+
+      .stat-num {
+        font-size: 22px;
+      }
+
+      .stat-meta {
+        font-size: 10.5px;
+        line-height: 1.25;
+      }
+
+      /* Card Header & Search */
+      .card-header {
+        padding: 14px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 10px;
+      }
+
+      .card-title-group h2 {
+        font-size: 16px;
+      }
+
+      .card-title-group p {
+        font-size: 12px;
+      }
+
+      .card-search-wrap {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      .search-input {
+        padding: 9px 12px;
+        font-size: 13px;
+      }
+
+      /* Responsive Mobile Card Layout for Table Rows */
+      .table-container {
+        overflow-x: visible;
+        padding: 8px 10px;
+      }
+
+      table, thead, tbody, th, td, tr {
+        display: block;
+      }
+
+      thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      tbody tr {
+        background: rgba(11, 17, 32, 0.7);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-md);
+        margin-bottom: 12px;
+        padding: 14px;
+        display: flex;
+        flex-direction: column;
+        gap: 9px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      }
+
+      tbody tr:last-child {
+        margin-bottom: 0;
+      }
+
+      tbody td {
+        padding: 0;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      tbody tr:hover td {
+        background: transparent;
+      }
+
+      /* Date row */
+      tbody td.date-text {
+        font-size: 11px;
+        color: var(--text-dim);
+        display: flex;
+        justify-content: flex-end;
+        padding-bottom: 4px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Client row */
+      tbody td:nth-child(2) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 2px;
+        padding-bottom: 4px;
+      }
+      .client-name {
+        font-size: 15px;
+        font-weight: 700;
+        color: #FFFFFF;
+      }
+      .client-company {
+        font-size: 12px;
+      }
+
+      /* Contact row */
+      tbody td:nth-child(3) {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+        background: rgba(255, 255, 255, 0.03);
+        padding: 8px 10px;
+        border-radius: var(--radius-sm);
+      }
+      .cell-contact a {
+        font-size: 12.5px;
+        word-break: break-all;
+      }
+
+      /* Subject row */
+      tbody td:nth-child(4) {
+        display: flex;
+        align-items: center;
+      }
+      .subject-pill {
+        max-width: 100%;
+        white-space: normal;
+        word-break: break-word;
+        font-size: 11.5px;
+      }
+
+      /* Action buttons */
+      tbody td:nth-child(5) {
+        display: flex;
+        padding-top: 8px;
+        border-top: 1px solid rgba(255, 255, 255, 0.06);
+      }
+      .action-group {
+        width: 100%;
+        display: flex;
+        gap: 10px;
+      }
+      .action-group .btn {
+        flex: 1;
+        padding: 8px 12px;
+        font-size: 12px;
+        text-align: center;
+        justify-content: center;
+      }
+
+      /* Modal Mobile Sizing */
+      .modal-backdrop {
+        padding: 12px;
+      }
+      .modal-box {
+        padding: 20px 16px;
+        max-height: 92vh;
+        overflow-y: auto;
+      }
+      .modal-header {
+        margin-bottom: 12px;
+        padding-bottom: 10px;
+      }
+      .modal-title {
+        font-size: 16px;
+      }
+      .modal-meta-grid {
+        grid-template-columns: 1fr;
+        gap: 8px;
+        padding: 10px;
+      }
+      .modal-msg-body {
+        max-height: 160px;
+        padding: 10px 12px;
+        font-size: 13px;
+        margin-bottom: 16px;
+      }
+      .modal-actions {
+        flex-direction: column-reverse;
+        gap: 8px;
+      }
+      .modal-actions .btn {
+        width: 100%;
+        padding: 11px;
+      }
+    }
+
+    /* Small Mobile Phones (<= 480px) */
+    @media (max-width: 480px) {
+      /* Hide email pill completely on very small screens */
+      #adminEmailPill {
+        display: none;
+      }
+
+      .stats-row {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+      .stat-card {
+        min-width: 0;
+        padding: 10px 8px;
+        gap: 3px;
+      }
+      .stat-label {
+        font-size: 9.5px;
+        letter-spacing: 0.2px;
+        line-height: 1.2;
+      }
+      .stat-num {
+        font-size: 18px;
+      }
+      .stat-meta {
+        font-size: 9px;
+        line-height: 1.2;
+      }
+
+      /* Login Screen */
+      .login-card {
+        padding: 26px 18px;
+        margin: 10px;
+      }
+      .login-header {
+        margin-bottom: 20px;
+      }
+      .brand-title {
+        font-size: 19px !important;
+      }
+      .login-subtitle {
+        font-size: 12px;
+      }
+      .form-input {
+        padding: 10px 12px;
+        font-size: 13.5px;
+      }
+
+      /* Notification Toasts */
+      #toastContainer {
+        left: 12px;
+        right: 12px;
+        bottom: 12px;
+      }
+      .toast {
+        width: 100%;
+        font-size: 12px;
+        padding: 10px 12px;
+      }
     }
   </style>
 </head>
@@ -679,18 +1031,18 @@
           <span id="navDbStatus">DB Online</span>
         </div>
 
-        <div class="admin-pill">
+        <div class="admin-pill" id="adminEmailPill" title="Logged in Administrator">
           <span id="navAdminEmail">admin@sainaexhibitions.com</span>
         </div>
 
         <button type="button" id="refreshBtn" class="btn btn-outline" title="Refresh leads list">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M23 4v6h-6M1 20v-6h6"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
-          <span>Refresh</span>
+          <span class="btn-text">Refresh</span>
         </button>
 
         <button type="button" id="logoutBtn" class="btn btn-outline" title="Sign out of portal">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg>
-          <span>Logout</span>
+          <span class="btn-text">Logout</span>
         </button>
       </div>
     </header>
