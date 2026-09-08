@@ -813,7 +813,9 @@
 
   <!-- ==================== SCRIPT ==================== -->
   <script>
-    const API_BASE = 'https://sepl-srjk.onrender.com';
+    const API_BASE = (window.location.origin.includes('sepl-srjk.onrender.com') || window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+      ? '/api'
+      : 'https://sepl-srjk.onrender.com/api';
     const TOKEN_KEY = 'sepl_admin_jwt';
 
     // DOM Elements
