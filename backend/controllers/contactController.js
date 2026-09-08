@@ -93,11 +93,7 @@ const submitContact = async (req, res, next) => {
   }
 };
 
-/**
- * @desc    API Health status check
- * @route   GET /api/contact/health
- * @access  Public
- */
+
 const getContactHealth = async (req, res) => {
   res.status(200).json({
     success: true,
@@ -106,7 +102,75 @@ const getContactHealth = async (req, res) => {
   });
 };
 
+
+const getAllContacts = async (req, res, next) => {
+  try {
+    const page = parseInt(req.query.page, 10) || 1;
+    const limit = parseInt(req.query.limit, 10) || 20;
+    const skip = (page - 1) * limit;
+
+    const [contacts, total] = await Promise.all([
+      Contact.find().sort({ createdAt: -1 }).skip(skip).limit(limit),
+      Contact.countDocuments()
+    ]);
+
+    return res.status(200).json({
+      success: true,
+      count: contacts.length,
+      total,
+      page,
+      pages: Math.ceil(total / limit),
+      data: contacts
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+const getContactById = async (req, res, next) => {
+  try {
+    const contact = await Contact.findById(req.params.id);
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: 'Enquiry not found.'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      data: contact
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+
+const deleteContact = async (req, res, next) => {
+  try {
+    const contact = await Contact.findByIdAndDelete(req.params.id);
+    if (!contact) {
+      return res.status(404).json({
+        success: false,
+        message: 'Enquiry not found.'
+      });
+    }
+
+    return res.status(200).json({
+      success: true,
+      message: 'Enquiry deleted successfully.'
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   submitContact,
-  getContactHealth
+  getContactHealth,
+  getAllContacts,
+  getContactById,
+  deleteContact
 };
